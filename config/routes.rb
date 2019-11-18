@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  
   root 'application#home'
   
   devise_for :users
@@ -10,4 +11,9 @@ Rails.application.routes.draw do
     post '/sort-image', to:'photos#sort_image'
     resources :users, :item_categories, :items, :photos
   end
+
+  namespace :api do
+    resources :users, :item_categories, :items, :photos
+  end
+
 end

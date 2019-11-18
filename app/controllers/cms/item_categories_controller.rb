@@ -1,6 +1,10 @@
 class Cms::ItemCategoriesController < CmsController
     def index
         @item_categories = ItemCategory.page params[:page]
+        respond_to do |format|
+            format.html { @item_categories }
+            format.json { render json: @item_categories }
+        end
     end
 
     def new
