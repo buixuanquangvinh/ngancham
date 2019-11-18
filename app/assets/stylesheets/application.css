@@ -13,3 +13,33 @@
  *= require_tree .
  *= require_self
  */
+html {
+    scroll-behavior: smooth;
+}
+
+.auth-container{
+    height: 100vh;
+    background: url("auth-form-background.jpg");
+    background-size: cover
+}
+
+.transparent-form{
+    background: rgba(0,0,0,0.5)
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    transition: all 0.3s;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+@media only screen and (max-width: 600px) {
+    #sidebar {
+       position: absolute;
+    }
+}

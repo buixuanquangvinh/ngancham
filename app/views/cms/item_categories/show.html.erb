@@ -1,0 +1,77 @@
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin/categories">Danh sách catalog</a></li>
+            <li class="breadcrumb-item active">Sửa catalog</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-12">
+        <h2>Sửa catalog</h2>
+        <%= form_for([:cms,@item_category]) do |f| %>
+            <div class="form-group">
+                <label>Tên catalog</label>
+                <%= f.text_field :name, class: "form-control", autofocus: true %>
+            </div>
+            <div class="form-group">
+                <label>Mô tả</label>
+                <%= f.text_area :description, class: "form-control" %>
+            </div>
+            <div class="form-group form-inline">
+                <label>Active status</label>
+                <div class="custom-control custom-switch ml-5">
+                    <%= f.check_box :active, class: "custom-control-input", id: 'activeSwitch'  %>
+                    <label class="custom-control-label" for="activeSwitch"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Ảnh bìa</label>
+                <button class="btn mt-1 pl-0" type="button" id="select-image-button"><i class="material-icons">camera_alt</i></button>
+                <div id="image-preview">
+                    <img src="<%=@item_category.image.thumbnail %>">
+                </div>
+                <%= f.file_field :image, class: "form-control d-none", id: 'file-input' %>
+                <%= f.hidden_field :image_cache %>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-primary" type="submit">Lưu Catalog</button>
+                <%= link_to 'Xoá catalog', cms_item_category_path(@item_category), class: "btn btn-danger text-white", method: :delete, data: { confirm: 'Delete this category ?' } %>
+            </div>
+        <% end %>
+        </div>
+        <div class="col-12 mt-3">
+            <h2>Log</h2>
+            <div class="table-responsive">
+                <table class="table table-bordered table-striped">
+                    <tbody>
+                        <% @item_category.versions.map do |version| %>
+                        <tr>
+                            <td><%= version.created_at.strftime("%d/%m/%Y %H:%M") %></td>
+                            <td><%= version.event %></td>
+                            <td><%= User.find(version.whodunnit).email %></td>
+                        </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('#select-image-button').on('click',()=>{
+        $('#file-input').click()
+    })
+    $('#file-input').on('change',(e)=>{
+        $('#image-preview').empty()
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = function () {
+            $('#image-preview').append('<img class="ml-1 mt-1" style="height:100px;width:auto" src="'+reader.result+'"/>')
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    })
+</script>
+                

@@ -1,0 +1,64 @@
+<div class="list-group list-group-flush" id="sidebar-content">
+    <div class="list-group-item d-flex" style="height:55px">
+    <%=image_tag("logo.jpg", :style => "width:35px;height:35px;") %>
+    <div class="d-flex flex-column justify-content-center"><a href="/" style="color: black;text-decoration: none;"><h3 class="mb-0"><b>DARKHOUSE</b></h3></a></div>
+    <div class="d-flex flex-column justify-content-center d-md-none">
+        <button type="button" id="sidebarCollapse2" class="btn pb-0">
+            <i class="material-icons">menu</i>
+        </button>
+    </div>
+    </div>
+    <div class="list-group-item">
+    <div class="text-wrap text-break text-center lead text-success">
+        <%= current_user.email %>
+    </div>
+    </div>
+    <a class="list-group-item list-group-item-action" href="/cms"><span><i class="fas fa-meteor fa-lg" style="width:30px;"></i></span> Dashboard</a>
+    <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#item_categories_menu"><span><i class="fas fa-object-group fa-lg" style="width:30px;"></i></span> Danh mục</a>
+    <div class="collapse bg-secondary" id="item_categories_menu">
+    <a class="list-group-item list-group-item-action bg-transparent text-white pl-5" href="/cms/item_categories"><i class="fas fa-circle fa-xs mr-2"></i> Danh Sách </a>
+    <a class="list-group-item list-group-item-action bg-transparent text-white pl-5" href="/cms/item_categories/new"><i class="fas fa-circle fa-xs mr-2"></i> Tạo Mới</a>
+    </div>
+    <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#items_menu"><span><i class="far fa-newspaper fa-lg" style="width:30px;"></i></span> Mặt hàng</a>
+    <div class="collapse bg-dark" id="items_menu">
+        <a class="list-group-item list-group-item-action bg-transparent text-white pl-5" href="/cms/news"><i class="fas fa-circle fa-xs mr-2"></i> Danh Sách</a>
+        <a class="list-group-item list-group-item-action bg-transparent text-white pl-5" href="/cms/news/new"><i class="fas fa-circle fa-xs mr-2"></i> Tạo Mới</a>
+    </div>
+    <a class="list-group-item list-group-item-action" data-toggle="collapse" href="#users_menu"><span><i class="fas fa-users fa-lg" style="width:30px;"></i></span> Người Dùng</a>
+    <div class="collapse bg-dark" id="users_menu">
+        <a class="list-group-item list-group-item-action bg-transparent text-white pl-5" href="/cms/users"><i class="fas fa-circle fa-xs mr-2"></i> Danh Sách</a>
+        <a class="list-group-item list-group-item-action bg-transparent text-white pl-5" href="/cms/users/new"><i class="fas fa-circle fa-xs mr-2"></i> Tạo Mới</a>
+    </div>
+</div> 
+<script>
+$(document).ready(function () {
+    $('#sidebarCollapse').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+    $('#sidebarCollapse2').on('click', function () {
+        $('#sidebar').toggleClass('active');
+    });
+
+    if (window.innerWidth <= 600) 
+    $("#sidebar").addClass('active');
+
+    var menu = ['item_categories_menu','items_menu','users_menu']
+    $('#sidebar-content').children().each((i,el)=>{
+        if(window.location.href == el.href){
+            el.classList.add('active')
+            el.classList.add('text-white')
+        }
+    })
+    menu.map((id)=>{
+        $('#'+id).children().each((i,el)=>{
+            if(window.location.href == el.href){
+            $('#'+id).prev().click()
+            $('#'+id).prev().addClass('active text-white')
+            el.classList.add('active')
+            el.classList.remove('bg-transparent')
+            }
+        })
+    })
+});
+</script>

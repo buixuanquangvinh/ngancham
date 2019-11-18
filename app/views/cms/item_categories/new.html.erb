@@ -1,0 +1,58 @@
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="/admin/categories">Danh sách catalog</a></li>
+            <li class="breadcrumb-item active">Tạo catalog</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <div class="col-12">
+        <h2>Catalog mới</h2>
+        <%= form_for([:cms,@item_category]) do |f| %>
+            <div class="form-group">
+                <label>Tên catalog</label>
+                <%= f.text_field :name, class: "form-control", autofocus: true %>
+            </div>
+            <div class="form-group">
+                <label>Mô tả</label>
+                <%= f.text_area :description, class: "form-control" %>
+            </div>
+            <div class="form-group form-inline">
+                <label>Trạng thái</label>
+                <div class="custom-control custom-switch ml-5">
+                    <%= f.check_box :active, class: "custom-control-input", id: 'activeSwitch'  %>
+                    <label class="custom-control-label" for="activeSwitch"></label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Ảnh bìa</label>
+                <button class="btn mt-1 pl-0" type="button" id="select-image-button"><i class="material-icons">camera_alt</i></button>   
+                <%= f.file_field :image, class: "form-control d-none", id: 'file-input' %>
+                <%= f.hidden_field :image_cache %>
+                <div id="image-preview"></div>
+            </div>
+            <div class="text-right">
+                <button class="btn btn-primary" type="submit">Tạo Catalog</button>
+            </div>
+        <% end %>
+        </div>
+    </div>
+</div>
+<script>
+        $('#select-image-button').on('click',()=>{
+        $('#file-input').click()
+    })
+    $('#file-input').on('change',(e)=>{
+        $('#image-preview').empty()
+        let reader = new FileReader();
+        reader.readAsDataURL(e.target.files[0]);
+        reader.onload = function () {
+            $('#image-preview').append('<img class="ml-1 mt-1" style="height:100px;width:auto" src="'+reader.result+'"/>')
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    })
+</script>
+                    

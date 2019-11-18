@@ -1,0 +1,31 @@
+<div class="container-fluid">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+            <li class="breadcrumb-item active">Danh sách catalog</li>
+        </ol>
+    </nav>
+    <a href="/admin/categories/new"><i class="material-icons text-primary">add_circle</i></a>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+            <th>Tên</th>
+            <th>Trạng thái</th>
+            <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @item_categories.each do |category| %>
+            <tr>
+                <td><%= category.name %></td>
+                <td><%= category.active ? 'Active':'Inactive' %></td>
+                <td class="text-center" style="width: 1%"><a href="/admin/categories/<%= category.id %>"><i class="material-icons">edit</i></a></td>
+            </tr>
+            <% end %>
+        </tbody>
+        </table>
+        <%= paginate @item_categories %>
+    </div>
+</div>
+  
