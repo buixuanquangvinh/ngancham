@@ -6,19 +6,13 @@ class Api::ItemsController < ApiController
     end
 
     def create
-        begin
-            @item = Item.create!(item_params)
-            if(@item && params[:photos])
-                params[:photos]['image'].each do |a|
-                    @photo = @item.photos.create!(:image => a)
-                end
+        @item = Item.create!(item_params)
+        if(@item && params[:photos])
+            params[:photos].each do |a|
+                @photo = @item.photos.create!(:image => a)
             end
-            flash[:success] = 'Tạo bài đăng thành công'
-            redirect_to action: :index
-        rescue => ex
-            flash[:error] = ex.message
-            redirect_back fallback_location: root_path
         end
+        return render json: @item
     end
 
     def show
@@ -55,8 +49,8 @@ class Api::ItemsController < ApiController
         end
     end
 
-    def news_params
-        params.require(:item).permit(
+    def item_params
+        params.permit(
             :name,
             :item_category_id,
             :description,
@@ -64,8 +58,7 @@ class Api::ItemsController < ApiController
             :active,
             :highlight,
             :image,
-            :image_cache,
-            photos_attributes: [:id, :image, :item_id])
+            :photos)
     end
 
 end

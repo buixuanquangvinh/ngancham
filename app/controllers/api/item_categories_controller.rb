@@ -1,16 +1,12 @@
 class Api::ItemCategoriesController < ApiController
     def index
         @item_categories = ItemCategory.page params[:page]
-        return render json: @item_categories 
+        return render json: @item_categories
     end
 
     def create
-        begin
-            @item_category = ItemCategory.create!(item_category_params)
-            return render json: @item_category
-        rescue => ex
-            return render json: ex.message
-        end
+        @item_category = ItemCategory.create!(item_category_params)
+        return render json: @item_category
     end
 
     def show
@@ -19,22 +15,14 @@ class Api::ItemCategoriesController < ApiController
     end
     
     def update
-        begin
-            @item_category = ItemCategory.find(params[:id])
-            @item_category.update(item_category_params)
-            return render json: @item_category
-        rescue => ex
-            return render json: ex.message
-        end
+        @item_category = ItemCategory.find(params[:id])
+        @item_category.update!(item_category_params)
+        return render json: @item_category
     end
 
     def destroy
-        begin
-            @item_category = ItemCategory.find(params[:id]).destroy
-            return render json: @item_category 
-        rescue => ex
-            return render json: ex.message
-        end
+        @item_category = ItemCategory.find(params[:id]).destroy!
+        return render json: @item_category 
     end
 
     def item_category_params
