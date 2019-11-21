@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    resources :users, :item_categories, :items, :photos
+    resources :users, :item_categories, :items, :photos, :item_prices
   end
 
 end

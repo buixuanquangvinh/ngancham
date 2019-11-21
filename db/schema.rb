@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_18_070906) do
+ActiveRecord::Schema.define(version: 2019_11_21_040509) do
 
   create_table "customers", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -30,8 +30,18 @@ ActiveRecord::Schema.define(version: 2019_11_18_070906) do
     t.string "image"
     t.string "slug"
     t.boolean "active"
+    t.boolean "is_deleted"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "item_prices", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "item_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["item_id"], name: "index_item_prices_on_item_id"
   end
 
   create_table "items", force: :cascade do |t|
@@ -42,6 +52,7 @@ ActiveRecord::Schema.define(version: 2019_11_18_070906) do
     t.string "content"
     t.boolean "active"
     t.boolean "highlight"
+    t.boolean "is_deleted"
     t.integer "item_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

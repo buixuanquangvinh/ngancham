@@ -6,6 +6,7 @@ class CreateItemCategories < ActiveRecord::Migration[6.0]
       t.string :image
       t.string :slug
       t.boolean :active
+      t.boolean :is_deleted
       t.timestamps
     end
   end

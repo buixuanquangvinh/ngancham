@@ -8,6 +8,7 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.string :content
       t.boolean :active
       t.boolean :highlight
+      t.boolean :is_deleted
       t.belongs_to :item_category, index: true
       t.timestamps
     end
