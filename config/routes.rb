@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   root 'application#home'
   
   devise_for :users
-  devise_for :customers
 
   namespace :cms do
     root to: "dashboard#index"

@@ -5,7 +5,6 @@ class CreateItems < ActiveRecord::Migration[6.0]
       t.string :slug
       t.string :image
       t.string :description
-      t.string :content
       t.boolean :active
       t.boolean :highlight
       t.boolean :is_deleted

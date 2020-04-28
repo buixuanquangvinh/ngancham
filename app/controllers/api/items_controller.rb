@@ -27,7 +27,7 @@ class Api::ItemsController < ApiController
     end
 
     def item_params
-        params.permit(:name,:item_category_id,:description,:content,:active,:highlight,:image)
+        params.permit(:name,:item_category_id,:description,:active,:highlight,:image)
     end
 
 end
